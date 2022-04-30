@@ -5,11 +5,11 @@ import pickle
 class handler(BaseHTTPRequestHandler):
 
   def do_POST(self):
-#   print(self.headers)
-#   print(self.command)
+   
     data = self.rfile.read(int(self.headers['content-length']))
     kwargs = json.loads(data)
     kwargs['data'] = base64.b64decode(kwargs['data'])
+    print(kwargs['data']["url"])
 
     try:
         req = requests.request(**kwargs, verify=False, allow_redirects=False)
@@ -26,4 +26,9 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(str(exc_value).encode().decode("utf-8"))
         
+    return
+
+def do_GET(self):
+    print(self.headers)
+    print(self.command)
     return
