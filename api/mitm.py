@@ -31,7 +31,12 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(self.headers.encode())
-        print(self.headers)
-        print(self.command)
+        self.wfile.write(json.dumps({
+            'method': self.command,
+            'path': self.path,
+            'real_path': parsed_path.query,
+            'query': parsed_path.query,
+            'request_version': self.request_version,
+            'protocol_version': self.protocol_version
+        }).encode())
         return
