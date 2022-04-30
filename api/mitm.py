@@ -9,7 +9,7 @@ class handler(BaseHTTPRequestHandler):
         data = self.rfile.read(int(self.headers['content-length']))
         kwargs = json.loads(data)
         kwargs['data'] = base64.b64decode(kwargs['data'])
-        print(str(kwargs['data']["url"]))
+    #    print(str(kwargs['data']["url"]))
 
         try:
             req = requests.request(**kwargs, verify=False, allow_redirects=False)
@@ -31,12 +31,9 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         self.end_headers()
-        parsed_path = urlparse(self.path)
         self.wfile.write(json.dumps({
             'method': self.command,
             'path': self.path,
-            'real_path': parsed_path.query,
-            'query': parsed_path.query,
             'request_version': self.request_version,
             'protocol_version': self.protocol_version
         }).encode())
