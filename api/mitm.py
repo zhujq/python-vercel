@@ -9,7 +9,7 @@ class handler(BaseHTTPRequestHandler):
         data = self.rfile.read(int(self.headers['content-length']))
         kwargs = json.loads(data)
         kwargs['data'] = base64.b64decode(kwargs['data'])
-        print(kwargs['data']["url"])
+    #    print(kwargs['data']["url"])
 
         try:
             req = requests.request(**kwargs, verify=False, allow_redirects=False)
@@ -32,5 +32,4 @@ class handler(BaseHTTPRequestHandler):
         self.send_response(200)
         print(self.headers)
         print(self.command)
-        self.wfile.write(self.headers)
         return
