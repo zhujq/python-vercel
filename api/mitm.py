@@ -17,7 +17,8 @@ class handler(BaseHTTPRequestHandler):
 
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(base64.b64encode(serializedReq).decode("utf-8"))
+    #   self.wfile.write(base64.b64encode(serializedReq).decode("utf-8"))
+        self.wfile.write(base64.b64encode(serializedReq))
         
     except Exception as e:#可以以集群方式返回结果抛出异常
         exc_type, exc_value, exc_traceback = sys.exc_info()
