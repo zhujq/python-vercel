@@ -9,7 +9,7 @@ class handler(BaseHTTPRequestHandler):
         data = self.rfile.read(int(self.headers['content-length']))
         kwargs = json.loads(data)
         kwargs['data'] = base64.b64decode(kwargs['data'])
-    #    print(str(kwargs['data']["url"]))
+        print(kwargs['data'].decode())
 
         try:
             req = requests.request(**kwargs, verify=False, allow_redirects=False)
